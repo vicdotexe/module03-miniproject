@@ -85,7 +85,7 @@ function processScore(result){
         cpuScore++;
     }
     console.log(`User Score: ${userScore}
-    Computer Score: ${cpuScore}`);
+Computer Score: ${cpuScore}`);
 }
 
 function runGame(){
@@ -106,6 +106,10 @@ function runGame(){
 
     processScore(gameResult);
     
+    // ask if user wants to play again
+    if (confirm("Play again?")){
+        return runGame();
+    }
 }
 
 runGame();
