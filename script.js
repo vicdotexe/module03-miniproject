@@ -1,6 +1,9 @@
 var tactics = ["R","P","S"];
 var userScore = 0;
 var cpuScore = 0;
+// var userScoreP = document.getElementById("userScore");
+// var cpuScoreP = document.getElementById("cpuScore");
+var playButton = document.getElementById("playButton");
 
 function randomInt(max){
     return Math.floor(Math.random() * max);
@@ -11,6 +14,7 @@ function getRandomTactic(){
 }
 
 function compareResults(user, cpu){
+    // assumes the parameters have already been set to upper-case
     var result;
     if (user == "R")
     {
@@ -51,7 +55,9 @@ function compareResults(user, cpu){
     return result;
 }
 
+
 function isTacticValid(tactic){
+    // assumes the parameters have already been set to upper-case
     return (tactic == "R" || tactic == "P" || tactic == "S");
 }
 
@@ -84,7 +90,7 @@ function processScore(result){
     if (result == "Loose"){
         cpuScore++;
     }
-    console.log(`User Score: ${userScore}
+    alert(`User Score: ${userScore}
 Computer Score: ${cpuScore}`);
 }
 
@@ -105,6 +111,7 @@ function runGame(){
     alert(`You ${gameResult}!`);
 
     processScore(gameResult);
+    // refreshPageScores();
     
     // ask if user wants to play again
     if (confirm("Play again?")){
@@ -112,4 +119,10 @@ function runGame(){
     }
 }
 
-runGame();
+// function refreshPageScores(){
+//     userScoreP.innerHTML = `User Score: ${userScore}`;
+//     cpuScoreP.innerHTML = `Cpu Score: ${cpuScore}`;
+// }
+
+refreshPageScores();
+playButton.addEventListener("click", runGame);
