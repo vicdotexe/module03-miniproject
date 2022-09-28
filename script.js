@@ -8,9 +8,7 @@ function getRandomTactic(){
     return tactics[randomInt(tactics.length)];
 }
 
-function getGameResults(userTactic, computerTactic){
-    var user = userTactic.toUpperCase();
-    var cpu = computerTactic.toUpperCase();
+function compareResults(user, cpu){
     var result;
     if (user == "R")
     {
@@ -51,12 +49,48 @@ function getGameResults(userTactic, computerTactic){
     return result;
 }
 
+function isTacticValid(tactic){
+    return (tactic == "R" || tactic == "P" || tactic == "S");
+}
+
+function promptUser(){
+
+    var userTactic = prompt("Choose R, P, or S");
+    
+    // return null if pressed cancel
+    if (userTactic == undefined){
+        return null; 
+    }
+
+    // safeguard against casing
+    userTactic = userTactic.toUpperCase(); 
+
+    // check for valid prompt entry
+    if (!isTacticValid(userTactic)){
+        alert("Valid entries are only R, P or S"); // remind the user of their options
+        return promptUser(); // continue to prompt user
+    }
+
+    // if this is reached then the user input a valid option
+    return userTactic;
+}
+
 function runGame(){
-    var userTactic = prompt("Choose: R, P, or S");
+
+    var userTactic = promptUser();
+
+    // if the user pressed cancel then escape the game
+    if (userTactic == null){
+        return;
+    }
+
+    // the user picked their tactic, lets process the computers
+    // choice and display the all activity/results to the user
     var computerTactic = getRandomTactic();
     alert(`Computer picked ${computerTactic}`);
-    var gameResult = getGameResults(userTactic, computerTactic);
+    var gameResult = compareResults(userTactic.toUpperCase(), computerTactic);
     alert(`You ${gameResult}!`);
+
 }
 
 runGame();
