@@ -1,9 +1,7 @@
 var tactics = ["R","P","S"];
-var userScore = 0;
-var cpuScore = 0;
-// var userScoreP = document.getElementById("userScore");
-// var cpuScoreP = document.getElementById("cpuScore");
-var playButton = document.getElementById("playButton");
+var wins = 0;
+var losses = 0;
+var ties = 0;
 
 function randomInt(max){
     return Math.floor(Math.random() * max);
@@ -85,17 +83,22 @@ function promptUser(){
 
 function processScore(result){
     if (result == "Win"){
-        userScore++;
+        wins++;
     }
     if (result == "Loose"){
-        cpuScore++;
+        losses++;
     }
-    alert(`User Score: ${userScore}
-Computer Score: ${cpuScore}`);
+    if (result == "Tie"){
+        ties++;
+    }
+
+    alert(`Wins: ${wins}
+Losses: ${losses}
+Ties: ${ties}`);
 }
 
 function runGame(){
-
+    
     var userTactic = promptUser();
 
     // if the user pressed cancel then escape the game
@@ -108,21 +111,17 @@ function runGame(){
     var computerTactic = getRandomTactic();
     alert(`Computer picked ${computerTactic}`);
     var gameResult = compareResults(userTactic.toUpperCase(), computerTactic);
+
+    
     alert(`You ${gameResult}!`);
 
     processScore(gameResult);
-    // refreshPageScores();
-    
+
     // ask if user wants to play again
     if (confirm("Play again?")){
         return runGame();
     }
 }
 
-// function refreshPageScores(){
-//     userScoreP.innerHTML = `User Score: ${userScore}`;
-//     cpuScoreP.innerHTML = `Cpu Score: ${cpuScore}`;
-// }
-
-refreshPageScores();
+var playButton = document.getElementById("playButton");
 playButton.addEventListener("click", runGame);
