@@ -1,4 +1,6 @@
 var tactics = ["R","P","S"];
+var userScore = 0;
+var cpuScore = 0;
 
 function randomInt(max){
     return Math.floor(Math.random() * max);
@@ -75,6 +77,17 @@ function promptUser(){
     return userTactic;
 }
 
+function processScore(result){
+    if (result == "Win"){
+        userScore++;
+    }
+    if (result == "Loose"){
+        cpuScore++;
+    }
+    console.log(`User Score: ${userScore}
+    Computer Score: ${cpuScore}`);
+}
+
 function runGame(){
 
     var userTactic = promptUser();
@@ -91,6 +104,8 @@ function runGame(){
     var gameResult = compareResults(userTactic.toUpperCase(), computerTactic);
     alert(`You ${gameResult}!`);
 
+    processScore(gameResult);
+    
 }
 
 runGame();
